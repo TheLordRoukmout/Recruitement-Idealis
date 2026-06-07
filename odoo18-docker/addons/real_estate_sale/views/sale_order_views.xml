@@ -1,0 +1,28 @@
+<odoo>
+  <record id="view_sale_order_form_inherit_project" model="ir.ui.view">
+    <field name="name">sale.order.form.inherit.real.estate</field>
+    <field name="model">sale.order</field>
+    <field name="inherit_id" ref="sale.view_order_form"/>
+    <field name="arch" type="xml">
+
+      <!-- Bandeau si projet terminé -->
+      <xpath expr="//field[@name='partner_id']" position="before">
+        <div invisible="not is_project_done"
+             class="alert alert-warning d-flex align-items-center gap-2 mb-3"
+             role="alert">
+          <i class="fa fa-exclamation-triangle"/>
+          Le projet immobilier sélectionné est <strong>terminé</strong>.
+          Veuillez vérifier la pertinence de ce bon de commande.
+        </div>
+      </xpath>
+
+      <!-- Champ projet après le client -->
+      <xpath expr="//field[@name='partner_id']" position="after">
+        <field name="real_estate_project_id"
+               options="{'no_create': True}"
+               widget="many2one"/>
+      </xpath>
+
+    </field>
+  </record>
+</odoo>

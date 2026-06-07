@@ -1,0 +1,76 @@
+<odoo>
+  <template id="parking_overview" name="Parking - Vue d'ensemble">
+    <t t-call="website.layout">
+      <t t-set="no_header" t-value="True"/>
+      <t t-set="no_footer" t-value="True"/>
+
+      <div class="container mt-5 mb-5">
+
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <h1>Parking - Disponibilité en temps réel</h1>
+          <span class="text-muted small" id="last-refresh">
+            Actualisation automatique toutes les 5s
+          </span>
+        </div>
+
+        <!-- Compteurs -->
+        <div class="row g-3 mb-5">
+          <div class="col-md-4">
+            <div class="card text-center border-0 bg-light">
+              <div class="card-body">
+                <h2 class="text-dark" t-esc="total"/>
+                <p class="mb-0 text-muted">Places totales</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card text-center border-0 bg-success bg-opacity-10">
+              <div class="card-body">
+                <h2 class="text-success" t-esc="available"/>
+                <p class="mb-0 text-success">Disponibles</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card text-center border-0 bg-danger bg-opacity-10">
+              <div class="card-body">
+                <h2 class="text-danger" t-esc="occupied"/>
+                <p class="mb-0 text-danger">Occupées</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Grille des places -->
+        <div class="row g-3">
+          <t t-foreach="places" t-as="place">
+            <div class="col-6 col-md-3 col-lg-2">
+              <div t-attf-class="card text-center border-2 #{place.is_available and 'border-success' or 'border-danger'}">
+                <div t-attf-class="card-body py-3 #{place.is_available and 'bg-success bg-opacity-10' or 'bg-danger bg-opacity-10'}">
+                  <div class="fs-4 mb-1">
+                    <t t-if="place.is_available">🟢</t>
+                    <t t-else="">🔴</t>
+                  </div>
+                  <strong t-esc="place.name"/>
+                  <div class="small mt-1">
+                    <t t-if="place.is_available">Libre</t>
+                    <t t-else="">Occupée</t>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </t>
+        </div>
+
+      </div>
+
+      <!-- Auto-refresh toutes les 5 secondes -->
+      <script>
+        setTimeout(function() {
+          window.location.reload();
+        }, 5000);
+      </script>
+
+    </t>
+  </template>
+</odoo>

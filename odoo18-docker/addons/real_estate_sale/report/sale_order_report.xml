@@ -1,0 +1,20 @@
+<odoo>
+  <template id="report_saleorder_document_inherit_project"
+            inherit_id="sale.report_saleorder_document">
+
+    <xpath expr="//div[@name='informations_reference']" position="before">
+      <t t-if="doc.real_estate_project_id">
+        <div class="col" name="informations_project">
+          <strong>Projet immobilier :</strong>
+          <span t-esc="doc.real_estate_project_id.name"/>
+          <span t-attf-class="badge ms-2 #{doc.real_estate_project_id.status == 'done' and 'bg-secondary' or doc.real_estate_project_id.status == 'in_progress' and 'bg-success' or 'bg-primary'}">
+            <t t-if="doc.real_estate_project_id.status == 'planned'">Planifié</t>
+            <t t-elif="doc.real_estate_project_id.status == 'in_progress'">En cours</t>
+            <t t-else="">Terminé</t>
+          </span>
+        </div>
+      </t>
+    </xpath>
+
+  </template>
+</odoo>

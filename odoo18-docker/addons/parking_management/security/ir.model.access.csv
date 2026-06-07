@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_parking_client_user,parking.client user,model_parking_client,base.group_user,1,1,1,1
+access_parking_place_user,parking.place user,model_parking_place,base.group_user,1,1,1,1
+access_parking_client_public,parking.client public,model_parking_client,,1,0,0,0
+access_parking_place_public,parking.place public,model_parking_place,,1,0,0,0
